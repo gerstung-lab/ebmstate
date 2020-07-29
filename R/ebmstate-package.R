@@ -11,12 +11,12 @@
 #'and incorporates some
 #'of their functions to reduce upstream dependency.
 #' 
-#' @name ebsurv-package
+#' @name ebmstate-package
 #' @docType package
 #' @author Rui Costa, Moritz Gerstung
 #' @details
 #' \tabular{ll}{
-#' Package: \tab ebsurv\cr
+#' Package: \tab ebmstate\cr
 #' Type: \tab Package\cr
 #' Version: \tab 0.0.73\cr
 #' Date: \tab 2020-01-21\cr
@@ -31,7 +31,7 @@
 #' @import utils
 #' @import methods
 NA
-#' @useDynLib ebsurv, .registration=TRUE
+#' @useDynLib ebmstate, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 NULL
 

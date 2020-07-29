@@ -9,8 +9,8 @@
 /*
   The following symbols/expressions for .NAME have been omitted
 
-    _ebsurv_convolute_semiMarkov
-    _ebsurv_convolute_Markov
+    _ebmstate_convolute_semiMarkov
+    _ebmstate_convolute_Markov
 
   Most likely possible values need to be added below.
 */
@@ -50,19 +50,19 @@ static const R_CMethodDef CEntries[] = {
 };
 
 /* .Call calls */
-extern SEXP _ebsurv_convolute_Markov(SEXP, SEXP, SEXP,SEXP);
-extern SEXP _ebsurv_convolute_semiMarkov(SEXP, SEXP,SEXP);
+extern SEXP _ebmstate_convolute_Markov(SEXP, SEXP, SEXP,SEXP);
+extern SEXP _ebmstate_convolute_semiMarkov(SEXP, SEXP,SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"_ebsurv_convolute_Markov",            (DL_FUNC) &_ebsurv_convolute_Markov,    4},
-  {"_ebsurv_convolute_semiMarkov",    (DL_FUNC) &_ebsurv_convolute_semiMarkov,    3},
+  {"_ebmstate_convolute_Markov",            (DL_FUNC) &_ebmstate_convolute_Markov,    4},
+  {"_ebmstate_convolute_semiMarkov",    (DL_FUNC) &_ebmstate_convolute_semiMarkov,    3},
   {"Ccoxcount1",    (DL_FUNC) &coxcount1,    2},
   {"Ccoxcount2",    (DL_FUNC) &coxcount2,    4},
   {"Cagmart3",      (DL_FUNC) &agmart3,      6},
   {NULL, NULL, 0}
 };
 
-void R_init_ebsurv(DllInfo *dll)
+void R_init_ebmstate(DllInfo *dll)
 {
     R_registerRoutines(dll, CEntries, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);

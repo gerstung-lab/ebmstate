@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // convolute_semiMarkov
 NumericVector convolute_semiMarkov(NumericVector time_vector, NumericVector integrand_1, NumericVector integrand_2);
-RcppExport SEXP _ebsurv_convolute_semiMarkov(SEXP time_vectorSEXP, SEXP integrand_1SEXP, SEXP integrand_2SEXP) {
+RcppExport SEXP _ebmstate_convolute_semiMarkov(SEXP time_vectorSEXP, SEXP integrand_1SEXP, SEXP integrand_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // convolute_Markov
 NumericVector convolute_Markov(NumericVector time_vector, NumericVector diff_vector, NumericVector probtrans_vector_1, NumericVector probtrans_vector_2);
-RcppExport SEXP _ebsurv_convolute_Markov(SEXP time_vectorSEXP, SEXP diff_vectorSEXP, SEXP probtrans_vector_1SEXP, SEXP probtrans_vector_2SEXP) {
+RcppExport SEXP _ebmstate_convolute_Markov(SEXP time_vectorSEXP, SEXP diff_vectorSEXP, SEXP probtrans_vector_1SEXP, SEXP probtrans_vector_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

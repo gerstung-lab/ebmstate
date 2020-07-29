@@ -1,4 +1,4 @@
-Package: ebsurv
+Package: ebmstate
 Type: Package
 Title: Empirical Bayes Multi-State Cox Model
 Version: 0.1.0

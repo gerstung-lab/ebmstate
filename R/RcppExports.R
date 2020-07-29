@@ -12,7 +12,7 @@
 #' @author Moritz Gerstung & Rui Costa
 #' @seealso \code{\link{probtrans_by_convolution_semiMarkov}}.
 convolute_semiMarkov <- function(time_vector, integrand_1, integrand_2) {
-    .Call(`_ebsurv_convolute_semiMarkov`, time_vector, integrand_1, integrand_2)
+    .Call(`_ebmstate_convolute_semiMarkov`, time_vector, integrand_1, integrand_2)
 }
 
 #' Convolution function for Markov models
@@ -26,6 +26,6 @@ convolute_semiMarkov <- function(time_vector, integrand_1, integrand_2) {
 #' @author Moritz Gerstung & Rui Costa
 #' @seealso \code{\link{probtrans_by_convolution_Markov}}.
 convolute_Markov <- function(time_vector, diff_vector, probtrans_vector_1, probtrans_vector_2) {
-    .Call(`_ebsurv_convolute_Markov`, time_vector, diff_vector, probtrans_vector_1, probtrans_vector_2)
+    .Call(`_ebmstate_convolute_Markov`, time_vector, diff_vector, probtrans_vector_1, probtrans_vector_2)
 }
 
