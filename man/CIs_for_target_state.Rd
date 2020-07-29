@@ -2,7 +2,7 @@
 % Please edit documentation in R/bootstrap_and_leave_one_out.R
 \name{CIs_for_target_state}
 \alias{CIs_for_target_state}
-\title{Ancillary function of \code{boot_ebsurv}.}
+\title{Ancillary function of \code{boot_ebmstate}.}
 \usage{
 CIs_for_target_state(target_state, probtrans_objects_boot)
 }
@@ -26,7 +26,7 @@ function is not meant to be called by the user.
 Uses function \code{extract_function}.
 }
 \seealso{
-\code{\link{boot_ebsurv}}; \code{\link{extract_function}}.
+\code{\link{boot_ebmstate}}; \code{\link{extract_function}}.
 }
 \author{
 Rui Costa

@@ -160,7 +160,7 @@ joint_cum_hazard_function<-function(t,competing_transitions,spline_list){
 #' state. This is sometimes called homogeneous semi-Markov
 #' model. 
 #' 
-#' The algorithm behing \code{probtrans_ebsurv} is based 
+#' The algorithm behind \code{probtrans_ebmstate} is based 
 #' on the convolution of density and survival functions and
 #' is suitable for processes with a tree-like transition
 #' structure only.
@@ -179,12 +179,12 @@ joint_cum_hazard_function<-function(t,competing_transitions,spline_list){
 #'
 #'@return An object of class 'probtrans'. See the 'value' 
 #'section in the help page of \code{mstate::probtrans}.
-#'@example inst/examples/probtrans_ebsurv-example.R
+#'@example inst/examples/probtrans_ebmstate-example.R
 #'@author Rui Costa & Moritz Gerstung
 #'@seealso \code{\link{probtrans}};
 #'
 #'@export
-probtrans_ebsurv<-function(initial_state,cumhaz,model,max_time=NULL,nr_steps=10000){
+probtrans_ebmstate<-function(initial_state,cumhaz,model,max_time=NULL,nr_steps=10000){
   if(is.null(max_time)) max_time<-max(cumhaz$Haz$time)
   probtrans_object<-lapply(initial_state, probtrans_by_convolution,tmat=cumhaz$trans,cumhaz=cumhaz,model=model,max_time=max_time,nr_steps=nr_steps)
   probtrans_object$trans<-cumhaz$trans
@@ -198,28 +198,28 @@ probtrans_ebsurv<-function(initial_state,cumhaz,model,max_time=NULL,nr_steps=100
 #'using convolution
 #'
 #'@description
-#'\code{probtrans_by_convolution} is an internal function of \code{probtrans_ebsurv} and
+#'\code{probtrans_by_convolution} is an internal function of \code{probtrans_ebmstate} and
 #'is not meant to be called directly by the user.
 #'It is itself a wrapper for the functions \code{probtrans_by_convolution_Markov}
 #'and \code{probtrans_by_convolution_semiMarkov}, which are the workhorses of the 
 #'convolution algorithm.
 #'
 #'@details For more information on the arguments of this function 
-#'see \code{\link{probtrans_ebsurv}}.
+#'see \code{\link{probtrans_ebmstate}}.
 #'
 #'@param tmat A transition matrix extracted from the \code{cumhaz} argument to 
-#'\code{probtrans_ebsurv}. 
+#'\code{probtrans_ebmstate}. 
 #'
-#'@param cumhaz \code{msfit} object (argument passed on from \code{probtrans_ebsurv}).
-#'@param from_state Initial state (argument passed on from \code{probtrans_ebsurv}).
-#'@param model 'Markov' or 'semiMarkov' (argument passed on from \code{probtrans_ebsurv}).
+#'@param cumhaz \code{msfit} object (argument passed on from \code{probtrans_ebmstate}).
+#'@param from_state Initial state (argument passed on from \code{probtrans_ebmstate}).
+#'@param model 'Markov' or 'semiMarkov' (argument passed on from \code{probtrans_ebmstate}).
 #'@param max_time The maximum time for which transition probabilities
 #'are estimated.
 #'@param nr_steps The number of steps in the convolution algorithm
 #' (larger increases precision but makes it slower)
 #'
 #'@author Rui Costa & Moritz Gerstung
-#'@seealso \code{\link{probtrans_ebsurv}};\code{\link{probtrans_by_convolution_Markov}};
+#'@seealso \code{\link{probtrans_ebmstate}};\code{\link{probtrans_by_convolution_Markov}};
 #'\code{\link{probtrans_by_convolution_semiMarkov}}.
 
 probtrans_by_convolution<-function(tmat,cumhaz,from_state,model,max_time,nr_steps){
@@ -265,7 +265,7 @@ probtrans_by_convolution<-function(tmat,cumhaz,from_state,model,max_time,nr_step
 #'@param unique_paths_object An object created by running \code{unique_paths}.
 #'@param time A vector of ordered time points.
 #'
-#'@seealso \code{\link{probtrans_ebsurv}};
+#'@seealso \code{\link{probtrans_ebmstate}};
 #'\code{\link{probtrans_by_convolution_semiMarkov}}; 
 #'\code{\link{probtrans_by_convolution}};
 #'\code{\link{unique_paths}};
@@ -331,7 +331,7 @@ probtrans_by_convolution_Markov<-function(tmat,cumhaz,from_state,to_state,spline
 #'@param unique_paths_object An object created by running \code{unique_paths}.
 #'@param time A vector of ordered time points.
 #'
-#'@seealso \code{\link{probtrans_ebsurv}};
+#'@seealso \code{\link{probtrans_ebmstate}};
 #'\code{\link{probtrans_by_convolution_Markov}}; 
 #'\code{\link{probtrans_by_convolution}};
 #'\code{\link{unique_paths}};

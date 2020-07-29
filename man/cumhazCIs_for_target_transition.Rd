@@ -2,7 +2,7 @@
 % Please edit documentation in R/bootstrap_and_leave_one_out.R
 \name{cumhazCIs_for_target_transition}
 \alias{cumhazCIs_for_target_transition}
-\title{Ancillary function of \code{boot_ebsurv}.}
+\title{Ancillary function of \code{boot_ebmstate}.}
 \usage{
 cumhazCIs_for_target_transition(transition, msfit_objects_boot)
 }
@@ -26,7 +26,7 @@ for multiple transitions. This
 function is not meant to be called by the user.
 }
 \seealso{
-\code{\link{boot_ebsurv}}.
+\code{\link{boot_ebmstate}}.
 }
 \author{
 Rui Costa

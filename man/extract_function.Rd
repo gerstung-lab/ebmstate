@@ -2,7 +2,7 @@
 % Please edit documentation in R/bootstrap_and_leave_one_out.R
 \name{extract_function}
 \alias{extract_function}
-\title{Ancillary function to \code{boot_ebsurv}.}
+\title{Ancillary function to \code{boot_ebmstate}.}
 \usage{
 extract_function(list_object, tstate)
 }
@@ -25,10 +25,10 @@ This function is not meant to be called by the user.
 }
 \details{
 This function is an ancillary function of \code{CIs_for_target_state}, which
-in turn is an ancillary function of \code{boot_ebsurv}.
+in turn is an ancillary function of \code{boot_ebmstate}.
 }
 \seealso{
-\code{\link{CIs_for_target_state}}; \code{\link{boot_ebsurv}}
+\code{\link{CIs_for_target_state}}; \code{\link{boot_ebmstate}}
 }
 \author{
 Rui Costa

@@ -22,10 +22,10 @@ boot_probtrans(coxrfx_fits_boot, patient_data, tmat, initial_state, max_time)
 Interval estimates for transition probabilities.
 }
 \description{
-Generates 95\% highest density bootstrap interval estimates for transition probabilities computed using \code{probtrans_ebsurv} (semi-Markov version).
+Generates 95\% highest density bootstrap interval estimates for transition probabilities computed using \code{probtrans_ebmstate} (semi-Markov version).
 }
 \seealso{
-\code{\link{probtrans_ebsurv}}; \code{\link{boot_coxrfx}}; 
+\code{\link{probtrans_ebmstate}}; \code{\link{boot_coxrfx}}; 
 \code{\link[mstate:trans]{transMat}}; \code{\link[mstate]{expand.covs}}
 }
 \author{

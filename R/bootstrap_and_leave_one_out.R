@@ -1,7 +1,7 @@
 
 #' Bootstrap confidence intervals for transition probabilities
 #' 
-#' Generates 95\% highest density bootstrap interval estimates for transition probabilities computed using \code{probtrans_ebsurv} (semi-Markov version).
+#' Generates 95\% highest density bootstrap interval estimates for transition probabilities computed using \code{probtrans_ebmstate} (semi-Markov version).
 #' 
 #' @param coxrfx_fits_boot The list of CoxRFX objects obtained by running \code{boot_coxrfx}.
 #' @param patient_data (Single) patient data in `long format`, possibly with `expanded` covariates
@@ -11,7 +11,7 @@
 #' @param max_time The maximum time for which estimates should be computed
 #' @return Interval estimates for transition probabilities. 
 #' @author Rui Costa
-#' @seealso \code{\link{probtrans_ebsurv}}; \code{\link{boot_coxrfx}}; 
+#' @seealso \code{\link{probtrans_ebmstate}}; \code{\link{boot_coxrfx}}; 
 #' \code{\link[mstate:trans]{transMat}}; \code{\link[mstate]{expand.covs}}
 
 
@@ -31,7 +31,7 @@ boot_probtrans<-function(coxrfx_fits_boot,patient_data,tmat,initial_state,max_ti
     #environment(coxrfx_fits_boot[[1]]$formula)$covariate_df<-covariate_df
     
     msfit_objects_boot[[i]]<-msfit_generic(coxrfx_fits_boot[[i]],patient_data2,trans=tmat)
-    probtrans_objects_boot[[i]]<-probtrans_ebsurv(initial_state,msfit_objects_boot[[i]],"semiMarkov")[[1]]
+    probtrans_objects_boot[[i]]<-probtrans_ebmstate(initial_state,msfit_objects_boot[[i]],"semiMarkov")[[1]]
     probtrans_objects_boot[[i]]<-probtrans_objects_boot[[i]][sapply(seq(from=0,to=max_time,length.out = 400),function(x) which.min(abs(probtrans_objects_boot[[i]]$time-x))),]
     
   }
@@ -41,7 +41,7 @@ boot_probtrans<-function(coxrfx_fits_boot,patient_data,tmat,initial_state,max_ti
   return(list(probtrans_CIs=probtrans_CIs,probtrans_objects_boot=probtrans_objects_boot, msfit_objects_boot=msfit_objects_boot))
 }
 
-#' Ancillary function to \code{boot_ebsurv}.
+#' Ancillary function to \code{boot_ebmstate}.
 #' 
 #' Extracts the bootstrap estimates of transition probabilities for
 #' target state `tstate` from a list
@@ -55,15 +55,15 @@ boot_probtrans<-function(coxrfx_fits_boot,patient_data,tmat,initial_state,max_ti
 #' from \code{list_object}. 
 #' @return Bootstrap estimates of transition probabilities into target state `tstate`. 
 #' @details This function is an ancillary function of \code{CIs_for_target_state}, which
-#' in turn is an ancillary function of \code{boot_ebsurv}.
+#' in turn is an ancillary function of \code{boot_ebmstate}.
 #' @author Rui Costa
-#' @seealso \code{\link{CIs_for_target_state}}; \code{\link{boot_ebsurv}} 
+#' @seealso \code{\link{CIs_for_target_state}}; \code{\link{boot_ebmstate}} 
 
 extract_function<-function(list_object,tstate){
   as.vector(list_object[tstate])
 }
 
-#' Ancillary function of \code{boot_ebsurv}.
+#' Ancillary function of \code{boot_ebmstate}.
 #' 
 #' Computes 95\% highest density bootstrap confidence 
 #' intervals for the transition probabilities into \code{target_state}, 
@@ -77,14 +77,14 @@ extract_function<-function(list_object,tstate){
 #' probabilities into \code{target_state}. 
 #' @details Uses function \code{extract_function}.
 #' @author Rui Costa
-#' @seealso \code{\link{boot_ebsurv}}; \code{\link{extract_function}}.
+#' @seealso \code{\link{boot_ebmstate}}; \code{\link{extract_function}}.
 
 CIs_for_target_state<-function(target_state,probtrans_objects_boot){
   target_state_boot_samples<-as.data.frame(sapply(probtrans_objects_boot, extract_function,tstate=target_state))
   apply(target_state_boot_samples,1,hdi,credMass=0.95)
 }
 
-#' Ancillary function of \code{boot_ebsurv}.
+#' Ancillary function of \code{boot_ebmstate}.
 #' 
 #' Computes 95\% highest density, non-parametric bootstrap confidence 
 #' intervals for the cumulative hazard rate functions, 
@@ -100,7 +100,7 @@ CIs_for_target_state<-function(target_state,probtrans_objects_boot){
 #' @return 95\% highest density, non-parametric bootstrap confidence intervals for the cumulative
 #' hazard rate functions.
 #' @author Rui Costa
-#' @seealso \code{\link{boot_ebsurv}}.
+#' @seealso \code{\link{boot_ebmstate}}.
 
 
 cumhazCIs_for_target_transition<-function(transition,msfit_objects_boot){
@@ -206,7 +206,7 @@ boot_coxrfx<-function(mstate_data_expanded,which_group,min_nr_samples=100,output
 #' @param time_model The model of time-dependency: either 'Markov' or 'semiMarkov'.
 #' @param coxrfx_args Named list with arguments to the \code{CoxRFX} function other than \code{Z},\code{surv} and \code{groups}.
 #' @param msfit_args Named list with arguments to the \code{msfit_generic.coxrfx} function other than \code{object},\code{newdata} and \code{trans}.
-#' @param probtrans_args Named list with arguments to the \code{probtrans_ebsurv} function other than \code{initia_state},\code{cumhaz} and \code{model}.
+#' @param probtrans_args Named list with arguments to the \code{probtrans_ebmstate} function other than \code{initia_state},\code{cumhaz} and \code{model}.
 #' @return A list with: 95\% bootstrap intervals for each regression coefficient and for transition probabilities; 
 #' bootstrap samples of regression coefficients, cumulative hazards and transition probabilities.
 #' @details In a given bootstrap sample there might not be enough information to generate 
@@ -219,7 +219,7 @@ boot_coxrfx<-function(mstate_data_expanded,which_group,min_nr_samples=100,output
 #' @export
 
 
-boot_ebsurv<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_samples=NULL,
+boot_ebmstate<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_samples=NULL,
                       patient_data=NULL,initial_state=NULL,tmat=NULL,
                       backup_file=NULL,input_file=NULL,time_model=NULL,coxrfx_args=NULL,
                       msfit_args=NULL,probtrans_args=NULL){
@@ -253,9 +253,9 @@ boot_ebsurv<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_samples=
     boot_samples<-c(boot_samples_trans_1,boot_samples_trans_2,boot_samples_trans_3) 
     
     mstate_data_expanded.boot<-mstate_data_expanded[boot_samples,]
-    covariate_df<-mstate_data_expanded.boot[!names(mstate_data_expanded.boot)%in%c("id","from","to","trans",
+    covariate_df<-mstate_data_expanded.boot[!names(mstate_data_expanded.boot)%in%c("id","from","to",
                                                                                    "Tstart","Tstop","time","status","type")]
-    groups2<-which_group[names(covariate_df)[names(covariate_df)!="strata"]]
+    groups2<-which_group[names(covariate_df)[!names(covariate_df)%in%c("strata","trans")]]
     if(time_model=="semiMarkov"){
       surv_object<-Surv(mstate_data_expanded.boot$time,mstate_data_expanded.boot$status) 
     }else if(time_model=="Markov"){
@@ -275,7 +275,7 @@ boot_ebsurv<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_samples=
       boot_matrix[j,names(coxrfx_fits_boot[[j]]$coefficients)]<-coxrfx_fits_boot[[j]]$coefficients
       
       msfit_objects_boot[[j]]<-do.call("msfit_generic",c(list(object=coxrfx_fits_boot[[j]],newdata=patient_data,trans=tmat),msfit_args))
-      probtrans_objects_boot[[j]]<-do.call("probtrans_ebsurv",c(list(initial_state=initial_state,cumhaz=msfit_objects_boot[[j]],model=time_model),probtrans_args))[[1]]
+      probtrans_objects_boot[[j]]<-do.call("probtrans_ebmstate",c(list(initial_state=initial_state,cumhaz=msfit_objects_boot[[j]],model=time_model),probtrans_args))[[1]]
       print(min(apply(boot_matrix, 2, function(x) sum(!is.na(x)))))
       if(j %%5==0){
         save(coxrfx_fits_boot,probtrans_objects_boot,
@@ -325,7 +325,7 @@ boot_ebsurv<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_samples=
 #' @param time_model The model of time-dependency: either 'Markov' or 'semiMarkov'.
 #' @param coxrfx_args Named list with arguments to the \code{CoxRFX} function other than \code{Z},\code{surv} and \code{groups}.
 #' @param msfit_args Named list with arguments to the \code{msfit_generic.coxrfx} function other than \code{object},\code{newdata} and \code{trans}.
-#' @param probtrans_args Named list with arguments to the \code{probtrans_ebsurv} function other than \code{initia_state},\code{cumhaz} and \code{model}.
+#' @param probtrans_args Named list with arguments to the \code{probtrans_ebmstate} function other than \code{initia_state},\code{cumhaz} and \code{model}.
 #' @return A list with: 95\% bootstrap intervals for each regression coefficient and for transition probabilities; 
 #' bootstrap samples of regression coefficients, cumulative hazards and transition probabilities.
 #' @details In a given bootstrap sample there might not be enough information to generate 
@@ -337,7 +337,7 @@ boot_ebsurv<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_samples=
 #' @export
 
 
-loo_ebsurv<-function(mstate_data,mstate_data_expanded,which_group,
+loo_ebmstate<-function(mstate_data,mstate_data_expanded,which_group,
                      patient_IDs,initial_state,tmat,
                      backup_file=NULL,input_file=NULL,time_model=NULL,coxrfx_args=list(),
                      msfit_args=NULL,probtrans_args=NULL){
@@ -359,8 +359,8 @@ loo_ebsurv<-function(mstate_data,mstate_data_expanded,which_group,
   
   for(j in indices){ 
     mstate_data_expanded_loo<-mstate_data_expanded[mstate_data_expanded$id!=patient_IDs[j],]
-    covariate_df<-mstate_data_expanded_loo[!names(mstate_data_expanded_loo)%in%c("id","from","to","trans","Tstart","Tstop","time","status","type")]
-    groups2<-which_group[names(covariate_df)[names(covariate_df)!="strata"]]
+    covariate_df<-mstate_data_expanded_loo[!names(mstate_data_expanded_loo)%in%c("id","from","to","Tstart","Tstop","time","status","type")]
+    groups2<-which_group[names(covariate_df)[!names(covariate_df)%in%c("strata","trans")]]
     if(time_model=="semiMarkov"){
       surv_object<-Surv(mstate_data_expanded_loo$time,mstate_data_expanded_loo$status) 
     }else if(time_model=="Markov"){
@@ -381,7 +381,7 @@ loo_ebsurv<-function(mstate_data,mstate_data_expanded,which_group,
       patient_data<-patient_data[names(mstate_data_expanded)]
       patient_data$strata<-unique(mstate_data[c("trans","strata")])[,2]
       msfit_objects_loo[[j]]<-do.call("msfit_generic",c(list(object=coxrfx_fits_loo[[j]],newdata=patient_data,trans=tmat),msfit_args))
-      probtrans_objects_loo[[j]]<-do.call("probtrans_ebsurv",c(list(initial_state=initial_state,cumhaz=msfit_objects_loo[[j]],model=time_model),probtrans_args))
+      probtrans_objects_loo[[j]]<-do.call("probtrans_ebmstate",c(list(initial_state=initial_state,cumhaz=msfit_objects_loo[[j]],model=time_model),probtrans_args))
       if(j %%5==0){
         save(patient_IDs,coxrfx_fits_loo,msfit_objects_loo,probtrans_objects_loo,j,file=backup_file)
       }
