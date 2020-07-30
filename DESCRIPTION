@@ -5,16 +5,7 @@ Version: 0.1.0
 Date: 2020-07-21 21:34:01 GMT 
 Author: Rui Costa, Moritz Gerstung
 Maintainer: Rui Costa <rui.costa@ebi.ac.uk>
-Description: Implements an empirical Bayes,
-    multi-state Cox model.Different groups of regression
-    coefficients can be defined, with coefficients of the
-    same group sharing the same Gaussian prior. It takes
-    as input a data set in 'long format' and generates
-    estimates of relative hazards, cumulative hazard
-    functions and transition probabilities. It relies 
-    on packages 'survival' and 'mstate'
-    and incorporates some 
-    of their functions to reduce upstream dependency.
+Description: Implements an empirical Bayes, multi-state Cox model for survival analysis. Run "?`ebmstate-package`" for details.
 Depends:
     R (>= 3.6.0),
     survival (>= 2.44-1.1),
@@ -25,7 +16,7 @@ Imports:
     stats,
     utils,
     methods
-License: GPL-3
+License: file LICENSE
 LinkingTo: Rcpp
 RoxygenNote: 7.1.1
 Encoding: UTF-8
