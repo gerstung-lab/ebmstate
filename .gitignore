@@ -9,3 +9,4 @@ src/*.dll
 .DS_Store
 *.Rproj
 .Rbuildignore
+.gitignore
