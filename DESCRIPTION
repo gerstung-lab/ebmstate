@@ -16,7 +16,7 @@ Imports:
     stats,
     utils,
     methods
-License: file LICENSE
+License: GPL (>=3) + file LICENSE
 LinkingTo: Rcpp
 RoxygenNote: 7.1.1
 Encoding: UTF-8
