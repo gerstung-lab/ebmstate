@@ -3,8 +3,14 @@ Type: Package
 Title: Empirical Bayes Multi-State Cox Model
 Version: 0.1.0
 Date: 2020-07-21 21:34:01 GMT 
-Author: Rui Costa, Moritz Gerstung
-Maintainer: Rui Costa <rui.costa@ebi.ac.uk>
+Authors@R:
+    c(person(given = "Rui",
+             family = "Costa",
+             role = c("aut", "cre"),
+             email = "rui.costa@ebi.ac.uk"),
+      person(given = "Moritz",
+             family = "Gerstung",
+             role = "aut"))
 Description: Implements an empirical Bayes, multi-state Cox model for survival analysis. Run "?`ebmstate-package`" for details.
 Depends:
     R (>= 3.6.0),
