@@ -1,6 +1,7 @@
 ## Test environments
 Local:  
-  1. macOS Catalina, R-release  
+  1. macOS Catalina, R-release
+  
 Using R-hub package builder:  
   2. Windows Server 2008 R2 SP1, R-devel, 32/64 bit  
   3. Ubuntu Linux 16.04 LTS, R-release, GCC  
