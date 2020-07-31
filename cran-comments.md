@@ -19,12 +19,21 @@ Notes in each platform:
 
   * Note:  
    
-      >checking CRAN incoming feasibility ... NOTE  
-      >Maintainer: 'Rui Costa <rui.costa@ebi.ac.uk>'  
-      >New submission
+      >New submission  
+
+      >License components with restrictions and base          license permitting such:    
+      >GPL (>= 3) + file LICENSE  
+      >File 'LICENSE':  
+        YEAR: 2020  
+        COPYRIGHT HOLDER: EMBL - European Bioinformatics I       Institute
+
+      >Possibly mis-spelled words in DESCRIPTION:  
+        ebmstate (8:97)
     
       Comment to note:  
-      This seems to be an unavoidable comment for first submissions.  
+      'GPL(>=3)' is a standard license definition. 
+      File LICENSE is added just to state copyright holder and year (as in package 'dplyr' for example).    
+      'ebmstate' is the package name.
 
 
 ## Downstream dependencies
