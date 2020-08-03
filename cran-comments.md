@@ -23,18 +23,11 @@ Notes in each platform:
    
       >New submission  
 
-      >License components with restrictions and base          license permitting such:    
-      >GPL (>= 3) + file LICENSE  
-      >File 'LICENSE':  
-        YEAR: 2020  
-        COPYRIGHT HOLDER: EMBL - European Bioinformatics Institute
-
       >Possibly mis-spelled words in DESCRIPTION:  
         ebmstate (8:97)
     
       Comment to note:  
-      'GPL(>=3)' is a standard license definition.   
-      File LICENSE is added just to state copyright holder and year (as in package 'dplyr' for example).      
+      
       'ebmstate' is the package name.
 
 
