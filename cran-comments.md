@@ -1,4 +1,4 @@
-## Reply to CRAN maintainer Martina Schmirl's comments
+## Reply to comments of CRAN maintainer Martina Schmirl
 
 >Please use only undirected quotation marks in the description text.
 --> "?ebmstate-package" or "?'ebmstate-package'"
