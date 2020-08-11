@@ -62,15 +62,23 @@ Notes in each platform:
 
   * Note:  
    
-      >New submission  
+>Maintainer: ‘Rui Costa <rui.costa@ebi.ac.uk>’
 
-      >Possibly mis-spelled words in DESCRIPTION:  
-        ebmstate (8:97)
-    
-      Comment to note:  
-      
-      'ebmstate' is the package name.
+>New submission
 
+>Possibly mis-spelled words in DESCRIPTION:
+  Schall (44:138)
+
+'Schall' (an author name) is correctly spelled
+
+>Found the following (possibly) invalid DOIs:
+  DOI: 10.1093/biomet/78.4.719
+    From: DESCRIPTION
+    Status: libcurl error code 56:
+    	SSL read: error:00000000:lib(0):func(0):reason(0), errno 104
+    Message: Error
+
+I checked that the DOI is correct.
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.
