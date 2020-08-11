@@ -14,33 +14,34 @@ Authors@R:
       person(given = c("Terry", "M"),
              family = "Therneau",
              role = "ctb",comment="author of 
-             the package 'survival', which the
-             current package extends"),
+             'survival', a package from
+             which code parts were copied"),
       person(given = "Thomas",
              family = "Lumley",
              role = "ctb",comment="contributor
-             to the package 'survival', which
-             the current package extends"),
+             to 'survival', a package from
+             which code parts were copied"),
       person(given = "Hein",
              family = "Putter",
-             role = "ctb",comment="author of 
-             the package 'mstate', which the
-             current package extends"),
+             role = "ctb",comment="co-author of 
+             'mstate', a package from which
+             code parts were copied"),
       person(given = "Liesbeth",
              family = "de Wreede",
-             role = "ctb",comment="author of
-             the package 'mstate', which the
-             current package extends"),
+             role = "ctb",comment="co-author of
+             'mstate', a package from which
+             code parts were copied"),
       person(given = "Marta",
              family = "Fiocco",
-             role = "ctb",comment="author of 
-             the package 'mstate', which the
-             current package extends"),
+             role = "ctb",comment="co-author of 
+             'mstate', a package from which
+             code parts were copied"),
       person(given = "Ronald",
              family = "Geskus",
              role = "ctb",comment="contributor
-             to the package 'mstate', which
-             the current package extends"))
+             to 'mstate', a package
+             from which code parts were 
+             copied"))
 Description: Implements an empirical Bayes, multi-state Cox model for survival analysis. Run "?'ebmstate-package'" for details. See also Schall (1991) <doi:10.1093/biomet/78.4.719>.
 Depends:
     R (>= 3.6.0),
