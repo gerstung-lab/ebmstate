@@ -139,9 +139,9 @@ boot_coxrfx<-function(mstate_data_expanded,which_group,min_nr_samples=100,output
   boot_matrix<-matrix(nrow=0,ncol = sum(!names(mstate_data_expanded)%in%c("id","from","to","trans","Tstart","Tstop","time","status","strata","type")),dimnames = list(NULL,names(mstate_data_expanded)[!names(mstate_data_expanded)%in%c("id","from","to","trans","Tstart","Tstop","time","status","strata","type")]))
   j<-1
   repeat{
-    boot_samples_trans_1<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==1,]),replace = T)
-    boot_samples_trans_2<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==2,]),replace = T)
-    boot_samples_trans_3<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==3,]),replace = T)
+    boot_samples_trans_1<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==1,]),replace = TRUE)
+    boot_samples_trans_2<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==2,]),replace = TRUE)
+    boot_samples_trans_3<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==3,]),replace = TRUE)
     boot_samples<-c(boot_samples_trans_1,boot_samples_trans_2,boot_samples_trans_3) 
     
     mstate_data_expanded.boot<-mstate_data_expanded[boot_samples,]
@@ -247,9 +247,9 @@ boot_ebmstate<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_sample
   sigma.hat<- unlist(mget("sigma.hat",ifnotfound = list(function(sigma.hat) "df")))
   verbose<- unlist(mget("verbose",ifnotfound = list(function(verbose) FALSE)))
   repeat{
-    boot_samples_trans_1<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==1,]),replace = T)
-    boot_samples_trans_2<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==2,]),replace = T)
-    boot_samples_trans_3<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==3,]),replace = T)
+    boot_samples_trans_1<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==1,]),replace = TRUE)
+    boot_samples_trans_2<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==2,]),replace = TRUE)
+    boot_samples_trans_3<-sample(rownames(mstate_data_expanded[mstate_data_expanded$trans==3,]),replace = TRUE)
     boot_samples<-c(boot_samples_trans_1,boot_samples_trans_2,boot_samples_trans_3) 
     
     mstate_data_expanded.boot<-mstate_data_expanded[boot_samples,]
@@ -374,7 +374,7 @@ loo_ebmstate<-function(mstate_data,mstate_data_expanded,which_group,
                                  sigma.hat = sigma.hat,
                                  verbose = verbose,coxrfx_args)
     if(sum(is.na(coxrfx_fits_loo[[j]]$coefficients))==0){
-      patient_data<-mstate_data[mstate_data$id==patient_IDs[j],,drop=F][1,][rep(1,length(unique(mstate_data$trans))),]
+      patient_data<-mstate_data[mstate_data$id==patient_IDs[j],,drop=FALSE][1,][rep(1,length(unique(mstate_data$trans))),]
       patient_data$trans<-1:length(unique(mstate_data$trans))
       patient_data<-expand.covs(patient_data,
                                 covs = names(patient_data)[!names(patient_data)%in%c("id","from","to","trans","strata","Tstart","Tstop","time","status","type")])

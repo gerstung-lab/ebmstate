@@ -52,7 +52,7 @@ is suitable for processes with a tree-like transition
 structure only.
 }
 \examples{
-\dontrun{
+\donttest{
 # Compute transition probabilities
 # from an object with (pre-estimated) 
 # cumulative hazard rates.

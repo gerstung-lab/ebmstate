@@ -1276,7 +1276,7 @@ coxph.getdata<-function (fit, y = TRUE, x = TRUE, stratax = TRUE, offset = FALSE
     if ((x || stratax) && is.null(tx)) {
       if (stratax) {
         temp <- untangle.specials(Terms, "strata", 1)
-        strat <- strata(m[temp$vars], shortlabel = T)
+        strat <- strata(m[temp$vars], shortlabel = TRUE)
       }
       if (x) 
         tx <- model.matrix(fit, data = m)

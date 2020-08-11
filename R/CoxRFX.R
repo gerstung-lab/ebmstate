@@ -257,15 +257,15 @@ print.msfit <- function(x,...){
 
 
 #' Convert factor to integer.
-#' @param F A factor vector.
+#' @param v A factor vector.
 #' @return A data.frame with columns corresponding to levels in the factor. 
 #' @details An internal function of \code{CoxRFX}, not meant
 #' to called directly by the user.
 #' @author Moritz Gerstung
 #' @seealso \code{\link{CoxRFX}}
-MakeInteger <- function(F){
-  res <- as.data.frame(lapply(levels(F), `==`, F))
-  colnames(res) <- levels(F)
+MakeInteger <- function(v){
+  res <- as.data.frame(lapply(levels(v), `==`, v))
+  colnames(res) <- levels(v)
   res + 0
 }
 
@@ -1536,7 +1536,7 @@ coxph.getdata<-function (fit, y = TRUE, x = TRUE, stratax = TRUE, offset = FALSE
     if ((x || stratax) && is.null(tx)) {
       if (stratax) {
         temp <- untangle.specials(Terms, "strata", 1)
-        strat <- strata(m[temp$vars], shortlabel = T)
+        strat <- strata(m[temp$vars], shortlabel = TRUE)
       }
       if (x) 
         tx <- model.matrix(fit, data = m)

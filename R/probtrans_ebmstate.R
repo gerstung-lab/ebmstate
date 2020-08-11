@@ -285,7 +285,7 @@ probtrans_by_convolution_Markov<-function(tmat,cumhaz,from_state,to_state,spline
   
   
   #successful_transitions_object<-successful_transitions(unique_paths_object,to_state)
-  #row_of_tmat_of_current_state<-which(tmat==successful_transitions_object[1],arr.ind = T)[1]
+  #row_of_tmat_of_current_state<-which(tmat==successful_transitions_object[1],arr.ind = TRUE)[1]
   #competing_transitions<-na.omit(tmat[row_of_tmat_of_current_state,])
   #probtrans_vector_1<-exp(-(sapply(time,joint_cum_hazard_function,competing_transitions=competing_transitions,spline_list=spline_list)))
   
@@ -293,7 +293,7 @@ probtrans_by_convolution_Markov<-function(tmat,cumhaz,from_state,to_state,spline
   for(i in 1:length(successful_transitions_object)){
     lagged_differences_vector<-c(diff(spline_list[[successful_transitions_object[i]]](time)))
     
-    column_of_tmat_with_successful_trans<-which(tmat==successful_transitions_object[i],arr.ind = T)[2]
+    column_of_tmat_with_successful_trans<-which(tmat==successful_transitions_object[i],arr.ind = TRUE)[2]
     name_of_next_state<-colnames(tmat)[column_of_tmat_with_successful_trans]
     if(length(na.omit(tmat[name_of_next_state,]))==0) {
       probtrans_vector_2<-rep(1,length(time))
@@ -349,7 +349,7 @@ probtrans_by_convolution_semiMarkov<-function(tmat,cumhaz,from_state,to_state,sp
   lagged_differences_vector<-diff(spline_list[[successful_transitions_object[1]]](time))
   integrand_1<-survival_function*c(lagged_differences_vector,0)
   for(i in 1:length(successful_transitions_object)){
-    column_of_tmat_with_successful_trans<-which(tmat==successful_transitions_object[i],arr.ind = T)[2]
+    column_of_tmat_with_successful_trans<-which(tmat==successful_transitions_object[i],arr.ind = TRUE)[2]
     name_of_next_state<-colnames(tmat)[column_of_tmat_with_successful_trans]
     if(length(na.omit(tmat[name_of_next_state,]))==0) {
       integrand_2<-rep(1,length(time))

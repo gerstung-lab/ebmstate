@@ -4,10 +4,10 @@
 \alias{MakeInteger}
 \title{Convert factor to integer.}
 \usage{
-MakeInteger(F)
+MakeInteger(v)
 }
 \arguments{
-\item{F}{A factor vector.}
+\item{v}{A factor vector.}
 }
 \value{
 A data.frame with columns corresponding to levels in the factor.

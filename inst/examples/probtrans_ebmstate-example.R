@@ -1,4 +1,4 @@
-\dontrun{
+\donttest{
 # Compute transition probabilities
 # from an object with (pre-estimated) 
 # cumulative hazard rates.
