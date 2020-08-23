@@ -587,8 +587,9 @@ msfit_generic.coxrfx<-function (object, newdata, trans,...)
           else y <- cbind(-1, y)
         }
         else stop("Cannot handle \"", type, "\" type survival data")
-        if (variance) 
-          x <- x[ord, ] else x <- 0
+        #if (variance) #change by Rui!
+          x <- x[ord, ]
+          #else x <- 0 #Change by Rui!
         if (has.strata) 
           newstrat <- (as.numeric(mf[, strat]))[ord] else newstrat <- rep(1, n)
         newstrat <- cumsum(table(newstrat))
