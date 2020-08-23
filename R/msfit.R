@@ -270,9 +270,9 @@ msfit_generic.default<-function (object, newdata, variance = TRUE, vartype = c("
         else y <- cbind(-1, y)
       }
       else stop("Cannot handle \"", type, "\" type survival data")
-      if (variance) 
+      #if (variance) #change by Rui! 
         x <- x[ord, ]
-      else x <- 0
+      #else x <- 0 #change by Rui!
       if (has.strata) 
         newstrat <- (as.numeric(mf[, strat]))[ord]
       else newstrat <- rep(1, n)
