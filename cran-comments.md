@@ -1,43 +1,45 @@
-## Reply to comments of CRAN maintainer Martina Schmirl
+## Resubmission after 'CRAN policy violation'
+Dear Cran Maintainer,
+I had the deadline of 02 Sep 2020 to solve some memory
+leak issues in my package code. Meanwhile my package was removed from CRAN last week, most likely
+because the maintainer who got in touch with me got an automatic out-of-office reply, which violated the CRAN
+rules.
+In any case, I'm resubmitting now and solving the memory leak issue.
+Many thanks.
+Best wishes,
+Rui
 
->Please use only undirected quotation marks in the description text.
---> "?ebmstate-package" or "?'ebmstate-package'"
+## Memory leak issue
 
-This has been corrected.
+Valgrind output showed memory leaks when running
+'msfit_generic-example.R'.
 
->If there are references describing the methods in your package, please add these in the description field of your DESCRIPTION file in the form
-authors (year) <doi:...>
-authors (year) <arXiv:...>
-authors (year, ISBN:...)
-or if those are not available: <https:...>
-with no space after 'doi:', 'arXiv:', 'https:' and angle brackets for auto-linking.
-(If you want to add a title as well please put it in quotes: "Title")
+After debugging, I re-run this example and obtained 
+the following Valgrind output summary:
 
-I have added a reference.
+>==103886== Memcheck, a memory error detector
+==103886== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==103886== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==103886== Command: /gpfs/nobackup/gerstung/rui/env/conda/envs/renv/lib/R/bin/exec/R -e example(msfit_generic,package="ebmstate") --vanilla
+==103886==
+[...]
+==103886== HEAP SUMMARY:
+==103886==     in use at exit: 190,104,742 bytes in 37,606 blocks
+==103886==   total heap usage: 78,993 allocs, 41,387 frees, 302,147,983 bytes allocated
+==103886== 
+==103886== LEAK SUMMARY:
+==103886==    definitely lost: 0 bytes in 0 blocks
+==103886==    indirectly lost: 0 bytes in 0 blocks
+==103886==      possibly lost: 0 bytes in 0 blocks
+==103886==    still reachable: 190,104,742 bytes in 37,606 blocks
+==103886==                       of which reachable via heuristic:
+==103886==                         newarray           : 4,264 bytes in 1 blocks
+==103886==         suppressed: 0 bytes in 0 blocks
+==103886== Rerun with --leak-check=full to see details of leaked memory
+==103886== 
+==103886== For lists of detected and suppressed errors, rerun with: -s
+==103886== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
->Please write TRUE and FALSE instead of T and F.
-(Please don't use "T" or "F" as vector names.)
-
-This has been corrected.
-
->\dontrun{} should only be used if the example really cannot be executed (e.g. because of missing additional software, missing API keys, ...) by the user. That's why wrapping examples in \dontrun{} adds the comment ("# Not run:") as a warning for the user.
-Does not seem necessary.
-Please unwrap the examples if they are executable in < 5 sec, or replace \dontrun{} with \donttest{}.
-
-I have replaced '\dontrun' by '\donttest{}'.
-
->Please always add all authors, contributors and copyright holders in the Authors@R field with the appropriate roles.
-From CRAN policies you agreed to:
-"The ownership of copyright and intellectual property rights of all components of the package must be clear and unambiguous (including from the authors specification in the DESCRIPTION file). Where code is copied (or derived) from the work of others (including from R itself), care must be taken that any copyright/license statements are preserved and authorship is not misrepresented.
-Preferably, an ‘Authors@R’ would be used with ‘ctb’ roles for the authors of such code. Alternatively, the ‘Author’ field should list these authors as contributors.
-Where copyrights are held by an entity other than the package authors, this should preferably be indicated via ‘cph’ roles in the ‘Authors@R’ field, or using a ‘Copyright’ field (if necessary referring to an inst/COPYRIGHTS file)."
-e.g.: Terry Therneau, Thomas Lumley,
-Please explain in the submission comments what you did about this issue.
-
-I have added the authors and contributors of packages 'mstate' and 'survival' as contributors to the current package. These are the only packages from which code parts were copied. In the
-authors[at]R field of the description, I added
-the following type of comment: "co-author of 
-'[package name]', a package from which code parts were copied." Where the source files contain functions from other packages, this is explicitly stated.
 
 ## Test environments
 Local:  
@@ -56,29 +58,33 @@ There were no ERRORs or WARNINGs for any platform tested.
 
 Notes in each platform:
 
-1. Local macOS, Debian Linux, Windows R-oldrel: 0 notes.
-
-2. Other platforms: 1 note   
+1. Windows 2008 R-devel: 1 note   
 
   * Note:  
-   
->Maintainer: ‘Rui Costa <rui.costa@ebi.ac.uk>’
 
+>Maintainer: 'Rui Costa <rui.costa@ebi.ac.uk>'
+  
 >New submission
+  
+>Package was archived on CRAN
+
+Please see my comments in the beginning of this document.
 
 >Possibly mis-spelled words in DESCRIPTION:
-  Schall (44:138)
+    Schall (45:138)
 
 'Schall' (an author name) is correctly spelled
-
+  
 >Found the following (possibly) invalid DOIs:
-  DOI: 10.1093/biomet/78.4.719
-    From: DESCRIPTION
-    Status: libcurl error code 56:
-    	SSL read: error:00000000:lib(0):func(0):reason(0), errno 104
-    Message: Error
-
+    DOI: 10.1093/biomet/78.4.719
+      From: DESCRIPTION
+      Status: libcurl error code 56:
+      	Send failure: Connection was reset
+      Message: Error
+      
 I checked that the DOI is correct.
+   
+2. Other platforms: 0 notes.
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.
