@@ -277,7 +277,7 @@ boot_ebmstate<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_sample
       msfit_objects_boot[[j]]<-do.call("msfit_generic",c(list(object=coxrfx_fits_boot[[j]],newdata=patient_data,trans=tmat),msfit_args))
       probtrans_objects_boot[[j]]<-do.call("probtrans_ebmstate",c(list(initial_state=initial_state,cumhaz=msfit_objects_boot[[j]],model=time_model),probtrans_args))[[1]]
       print(min(apply(boot_matrix, 2, function(x) sum(!is.na(x)))))
-      if(j %%5==0){
+      if(j %%5==0 & !is.null(backup_file)){
         save(coxrfx_fits_boot,probtrans_objects_boot,
              msfit_objects_boot,boot_matrix,j, file =backup_file)
       }
@@ -382,7 +382,7 @@ loo_ebmstate<-function(mstate_data,mstate_data_expanded,which_group,
       patient_data$strata<-unique(mstate_data[c("trans","strata")])[,2]
       msfit_objects_loo[[j]]<-do.call("msfit_generic",c(list(object=coxrfx_fits_loo[[j]],newdata=patient_data,trans=tmat),msfit_args))
       probtrans_objects_loo[[j]]<-do.call("probtrans_ebmstate",c(list(initial_state=initial_state,cumhaz=msfit_objects_loo[[j]],model=time_model),probtrans_args))
-      if(j %%5==0){
+      if(j %%5==0 & !is.null(backup_file)){
         save(patient_IDs,coxrfx_fits_loo,msfit_objects_loo,probtrans_objects_loo,j,file=backup_file)
       }
       print(j)
