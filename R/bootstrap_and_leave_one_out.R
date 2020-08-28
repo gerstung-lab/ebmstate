@@ -220,8 +220,8 @@ boot_coxrfx<-function(mstate_data_expanded,which_group,min_nr_samples=100,output
 
 
 boot_ebmstate<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_samples=NULL,
-                      patient_data=NULL,initial_state=NULL,tmat=NULL,
-                      backup_file=NULL,input_file=NULL,time_model=NULL,coxrfx_args=NULL,
+                      patient_data=NULL,initial_state=NULL,tmat=NULL,time_model=NULL,
+                      backup_file=NULL,input_file=NULL,coxrfx_args=NULL,
                       msfit_args=NULL,probtrans_args=NULL){
   
   list2env(coxrfx_args,envir = environment())
@@ -338,8 +338,8 @@ boot_ebmstate<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_sample
 
 
 loo_ebmstate<-function(mstate_data,mstate_data_expanded,which_group,
-                     patient_IDs,initial_state,tmat,
-                     backup_file=NULL,input_file=NULL,time_model=NULL,coxrfx_args=list(),
+                     patient_IDs,initial_state,tmat,time_model,
+                     backup_file=NULL,input_file=NULL,coxrfx_args=list(),
                      msfit_args=NULL,probtrans_args=NULL){
   list2env(coxrfx_args,envir = environment())
   if(!is.null(input_file)){

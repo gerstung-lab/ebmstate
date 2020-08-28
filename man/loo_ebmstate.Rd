@@ -11,9 +11,9 @@ loo_ebmstate(
   patient_IDs,
   initial_state,
   tmat,
+  time_model,
   backup_file = NULL,
   input_file = NULL,
-  time_model = NULL,
   coxrfx_args = list(),
   msfit_args = NULL,
   probtrans_args = NULL
@@ -32,12 +32,12 @@ loo_ebmstate(
 
 \item{tmat}{Transition matrix for the multi-state model, as obtained by running \code{mstate::transMat}}
 
+\item{time_model}{The model of time-dependency: either 'Markov' or 'semiMarkov'.}
+
 \item{backup_file}{Path to file. Objects generated while the present function is running are stored in this file. 
 This avoids losing all estimates if and when the algorithm breaks down. See argument \code{input_file}.}
 
 \item{input_file}{Path to \code{backup_file} (see argument \code{backup_file}). If this argument is given, all other arguments should be \code{NULL}.}
-
-\item{time_model}{The model of time-dependency: either 'Markov' or 'semiMarkov'.}
 
 \item{coxrfx_args}{Named list with arguments to the \code{CoxRFX} function other than \code{Z},\code{surv} and \code{groups}.}
 
