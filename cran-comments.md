@@ -9,7 +9,7 @@ checking Rd cross-references ... WARNING
 Missing link or links in documentation object 'boot_probtrans.Rd':
   '[mstate:trans]{transMat}'
 
-It also fixes a couple of small bugs.
+It also fixes another small bug.
 Many thanks.
 Best wishes,
 Rui
