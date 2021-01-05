@@ -1,4 +1,3 @@
-## Resubmission after 'CRAN policy violation'
 Dear CRAN Maintainer,
 
 this re-submission fixes the following 
