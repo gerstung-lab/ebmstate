@@ -46,7 +46,7 @@ Maintainer: ‘Rui Costa <rui.costa@ebi.ac.uk>’
       
 I checked that the DOI is correct.
    
-There no other NOTES for any of the platforms.
+There were no other NOTES for any of the platforms.
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.
