@@ -1,49 +1,23 @@
 ## Resubmission after 'CRAN policy violation'
-Dear Cran Maintainer,
-I had the deadline of 02 Sep 2020 to solve some memory
-leak issues in my package code. Meanwhile my package was removed from CRAN last week, most likely
-because the maintainer who got in touch with me got an automatic out-of-office reply, which violated the CRAN
-rules.
-In any case, I'm resubmitting now and solving the memory leak issue.
+Dear CRAN Maintainer,
+
+this re-submission fixes the following 
+warning, which appeared after a recent 
+update on the upstream package 'mstate'
+>
+checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'boot_probtrans.Rd':
+  '[mstate:trans]{transMat}'
+
+It also fixes a couple of small bugs.
 Many thanks.
 Best wishes,
 Rui
 
-## Memory leak issue
-
-Valgrind output showed memory leaks when running
-'msfit_generic-example.R'.
-
-After debugging, I re-run this example and obtained 
-the following Valgrind output summary:
-
->==103886== Memcheck, a memory error detector
-==103886== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==103886== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==103886== Command: /gpfs/nobackup/gerstung/rui/env/conda/envs/renv/lib/R/bin/exec/R -e example(msfit_generic,package="ebmstate") --vanilla
-==103886==
-[...]
-==103886== HEAP SUMMARY:
-==103886==     in use at exit: 190,104,742 bytes in 37,606 blocks
-==103886==   total heap usage: 78,993 allocs, 41,387 frees, 302,147,983 bytes allocated
-==103886== 
-==103886== LEAK SUMMARY:
-==103886==    definitely lost: 0 bytes in 0 blocks
-==103886==    indirectly lost: 0 bytes in 0 blocks
-==103886==      possibly lost: 0 bytes in 0 blocks
-==103886==    still reachable: 190,104,742 bytes in 37,606 blocks
-==103886==                       of which reachable via heuristic:
-==103886==                         newarray           : 4,264 bytes in 1 blocks
-==103886==         suppressed: 0 bytes in 0 blocks
-==103886== Rerun with --leak-check=full to see details of leaked memory
-==103886== 
-==103886== For lists of detected and suppressed errors, rerun with: -s
-==103886== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-
 
 ## Test environments
 Local:  
-  1. macOS Catalina, R-release
+  1. macOS Big Sur, R-release
   
 Using R-hub package builder:  
 
@@ -56,35 +30,23 @@ Using R-hub package builder:
 ## R CMD check results
 There were no ERRORs or WARNINGs for any platform tested.
 
-Notes in each platform:
+The following note (or very similar) appeared in 
+the platforms mentioned above except macOS Big Sur
+and Debian Linux:
 
-1. Windows 2008 R-devel: 1 note   
+>* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Rui Costa <rui.costa@ebi.ac.uk>’
 
-  * Note:  
-
->Maintainer: 'Rui Costa <rui.costa@ebi.ac.uk>'
-  
->New submission
-  
->Package was archived on CRAN
-
-Please see my comments in the beginning of this document.
-
->Possibly mis-spelled words in DESCRIPTION:
-    Schall (45:138)
-
-'Schall' (an author name) is correctly spelled
-  
 >Found the following (possibly) invalid DOIs:
-    DOI: 10.1093/biomet/78.4.719
-      From: DESCRIPTION
-      Status: libcurl error code 56:
-      	Send failure: Connection was reset
-      Message: Error
+  DOI: 10.1093/biomet/78.4.719
+    From: DESCRIPTION
+    Status: libcurl error code 56:
+    	OpenSSL SSL_read: Connection reset by peer, errno 104
+    Message: Error
       
 I checked that the DOI is correct.
    
-2. Other platforms: 0 notes.
+There no other NOTES for any of the platforms.
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.

@@ -26,7 +26,7 @@ Generates 95\% highest density bootstrap interval estimates for transition proba
 }
 \seealso{
 \code{\link{probtrans_ebmstate}}; \code{\link{boot_coxrfx}}; 
-\code{\link[mstate:trans]{transMat}}; \code{\link[mstate]{expand.covs}}
+\code{\link[mstate]{transMat}}; \code{\link[mstate]{expand.covs}}
 }
 \author{
 Rui Costa
