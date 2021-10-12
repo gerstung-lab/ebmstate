@@ -15,14 +15,6 @@ cumhaz_splines<-function(cumhaz){
   spline_list<-vector("list",length(unique(cumhaz$Haz$trans)))
   for(i in unique(cumhaz$Haz$trans)){
     cumhaz_subset<-cumhaz$Haz[cumhaz$Haz$trans==i,]
-    # if(i%in%c(2,3)){
-    #   cumhaz_subset<-cumhaz_subset[cumhaz_subset$time>5,]
-    #   fun233<-function(x,first_row){
-    #     cumhaz_subset[x,]<<-cumhaz_subset[x,]-first_row
-    #   }
-    #   sapply(1:nrow(cumhaz_subset),fun233,first_row=cumhaz_subset[1,])
-    #   cumhaz_subset$trans<-i
-    # }
     spline_list[[i]]<-splinefun(cumhaz_subset[,"time"], cumhaz_subset[,"Haz"], method="monoH.FC")
   }
   spline_list
