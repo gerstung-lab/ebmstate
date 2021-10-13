@@ -81,7 +81,7 @@ unique_paths<-function(from_state,tmat){
 #'to the function \code{unique_paths}. 
 #'The process must have a tree-like structure.
 #'
-#'This function is used by \code{probtrans_by_convolution_Markov} and \code{probtrans_by_convolution_semiMarkov}.
+#'This function is used by \code{probtrans_by_convolution_clockforward} and \code{probtrans_by_convolution_clockreset}.
 #'It is not meant to be called by the user.
 #'
 #'@param unique_paths_object An object created by running 
@@ -92,8 +92,8 @@ unique_paths<-function(from_state,tmat){
 #'
 #'@author Rui Costa
 #'@seealso \code{\link{unique_paths}};
-#' \code{\link{probtrans_by_convolution_Markov}};
-#' \code{\link{probtrans_by_convolution_semiMarkov}}.
+#' \code{\link{probtrans_by_convolution_clockforward}};
+#' \code{\link{probtrans_by_convolution_clockreset}}.
 
 successful_transitions<-function(unique_paths_object,to_state,tmat){
   row_of_paths_object_with_to_state<-which(apply(unique_paths_object,1,function(x) sum(na.omit(x==to_state))>0))
@@ -115,8 +115,8 @@ successful_transitions<-function(unique_paths_object,to_state,tmat){
 #'
 #'@description
 #'This function is not meant to be called by the user. It is
-#'an internal function of \code{probtrans_by_convolution_Markov}
-#'and \code{probtrans_by_convolution_semiMarkov}.
+#'an internal function of \code{probtrans_by_convolution_clockforward}
+#'and \code{probtrans_by_convolution_clockreset}.
 #'
 #'\code{joint_cum_hazard_function} returns the cumulative
 #'hazard of leaving state \code{i} to any state that can be
@@ -138,8 +138,8 @@ successful_transitions<-function(unique_paths_object,to_state,tmat){
 #'@return A vector with the cumulative hazard of leaving a given state evaluated at given time points.
 #'
 #'@author Rui Costa
-#'@seealso \code{\link{probtrans_by_convolution_Markov}};
-#'\code{\link{probtrans_by_convolution_semiMarkov}};
+#'@seealso \code{\link{probtrans_by_convolution_clockforward}};
+#'\code{\link{probtrans_by_convolution_clockreset}};
 #' \code{\link{cumhaz_splines}}.
 
 joint_cum_hazard_function<-function(t,competing_transitions,spline_list){
@@ -153,12 +153,11 @@ joint_cum_hazard_function<-function(t,competing_transitions,spline_list){
 #'Compute subject-specific transition probabilities
 #'using convolution.
 #'@details
-#'The Markov model is a non-homogeneous Markov model 
+#'The clock-forward model is a model 
 #'in which the transition hazard rates depend only on
-#'time since the initiating event. The semi-Markov model
+#'time since the initiating event. The clock-reset model
 #' has a single time scale: the sojourn time in the current 
-#' state. This is sometimes called homogeneous semi-Markov
-#' model. 
+#' state.
 #' 
 #' The algorithm behind \code{probtrans_ebmstate} is based 
 #' on the convolution of density and survival functions and
@@ -170,8 +169,8 @@ joint_cum_hazard_function<-function(t,competing_transitions,spline_list){
 #'in this argument.
 #'@param cumhaz An \code{msfit} object created by running
 #'\code{mstate} or \code{mstate_generic}.
-#'@param model Either 'Markov' or
-#' 'semiMarkov'. See details.
+#'@param model Either 'clockforward' or
+#' 'clockreset'. See details.
 #'@param max_time The maximum time for which transition probabilities
 #'are estimated.
 #'@param nr_steps The number of steps in the convolution algorithm
@@ -200,8 +199,8 @@ probtrans_ebmstate<-function(initial_state,cumhaz,model,max_time=NULL,nr_steps=1
 #'@description
 #'\code{probtrans_by_convolution} is an internal function of \code{probtrans_ebmstate} and
 #'is not meant to be called directly by the user.
-#'It is itself a wrapper for the functions \code{probtrans_by_convolution_Markov}
-#'and \code{probtrans_by_convolution_semiMarkov}, which are the workhorses of the 
+#'It is itself a wrapper for the functions \code{probtrans_by_convolution_clockforward}
+#'and \code{probtrans_by_convolution_clockreset}, which are the workhorses of the 
 #'convolution algorithm.
 #'
 #'@details For more information on the arguments of this function 
@@ -212,15 +211,15 @@ probtrans_ebmstate<-function(initial_state,cumhaz,model,max_time=NULL,nr_steps=1
 #'
 #'@param cumhaz \code{msfit} object (argument passed on from \code{probtrans_ebmstate}).
 #'@param from_state Initial state (argument passed on from \code{probtrans_ebmstate}).
-#'@param model 'Markov' or 'semiMarkov' (argument passed on from \code{probtrans_ebmstate}).
+#'@param model 'clockforward' or 'clockreset' (argument passed on from \code{probtrans_ebmstate}).
 #'@param max_time The maximum time for which transition probabilities
 #'are estimated.
 #'@param nr_steps The number of steps in the convolution algorithm
 #' (larger increases precision but makes it slower)
 #'
 #'@author Rui Costa & Moritz Gerstung
-#'@seealso \code{\link{probtrans_ebmstate}};\code{\link{probtrans_by_convolution_Markov}};
-#'\code{\link{probtrans_by_convolution_semiMarkov}}.
+#'@seealso \code{\link{probtrans_ebmstate}};\code{\link{probtrans_by_convolution_clockforward}};
+#'\code{\link{probtrans_by_convolution_clockreset}}.
 
 probtrans_by_convolution<-function(tmat,cumhaz,from_state,model,max_time,nr_steps){
   spline_list<-cumhaz_splines(cumhaz)
@@ -229,10 +228,10 @@ probtrans_by_convolution<-function(tmat,cumhaz,from_state,model,max_time,nr_step
   #all_target_states<-all_states[-which(all_states==from_state)]
   time<-seq(0,max_time,length.out=nr_steps)
   #time<-sort(c(0,sort(coxph.detail(fit)$time)-1,sort(coxph.detail(fit)$time)+1,maximum_time))
-  if(model=="semiMarkov"){
-    transprobs_for_all_states<-sapply(all_states, probtrans_by_convolution_semiMarkov,cumhaz=cumhaz,tmat=tmat,from_state=from_state,spline_list=spline_list,unique_paths_object=unique_paths_object,time=time)
+  if(model=="clockreset"){
+    transprobs_for_all_states<-sapply(all_states, probtrans_by_convolution_clockreset,cumhaz=cumhaz,tmat=tmat,from_state=from_state,spline_list=spline_list,unique_paths_object=unique_paths_object,time=time)
   }else{
-    transprobs_for_all_states<-sapply(all_states, probtrans_by_convolution_Markov,cumhaz=cumhaz,tmat=tmat,from_state=from_state,spline_list=spline_list,unique_paths_object=unique_paths_object,time=time)
+    transprobs_for_all_states<-sapply(all_states, probtrans_by_convolution_clockforward,cumhaz=cumhaz,tmat=tmat,from_state=from_state,spline_list=spline_list,unique_paths_object=unique_paths_object,time=time)
   }
   non_reacheable_states<-rownames(tmat)[!rownames(tmat)%in%all_states]
   transprobs_for_all_states<-cbind(transprobs_for_all_states,matrix(0,nrow = length(time),ncol = length(non_reacheable_states),dimnames = list(NULL,non_reacheable_states)))
@@ -244,14 +243,14 @@ probtrans_by_convolution<-function(tmat,cumhaz,from_state,model,max_time,nr_step
   
 }
 
-#'Compute transition probabilities under a non-homogeneous Markov model using
+#'Compute transition probabilities under a clock-forward model using
 #'a convolution algorithm.
 #'
 #'@description
 #'Compute transition probabilities for a given starting state and target state
-#'under a non-homogeneous Markov model, using a convolution algorithm.
+#'under a clock-forward model, using a convolution algorithm.
 #'
-#'\code{probtrans_by_convolution_Markov} is an internal function of
+#'\code{probtrans_by_convolution_clockforward} is an internal function of
 #'\code{probtrans_by_convolution} and is not meant to be called directly by the user.
 #'
 #'@param tmat Transition matrix.
@@ -266,13 +265,13 @@ probtrans_by_convolution<-function(tmat,cumhaz,from_state,model,max_time,nr_step
 #'@param time A vector of ordered time points.
 #'
 #'@seealso \code{\link{probtrans_ebmstate}};
-#'\code{\link{probtrans_by_convolution_semiMarkov}}; 
+#'\code{\link{probtrans_by_convolution_clockreset}}; 
 #'\code{\link{probtrans_by_convolution}};
 #'\code{\link{unique_paths}};
 #'\code{\link{cumhaz_splines}}.
 #'@author Rui Costa & Moritz Gerstung
 
-probtrans_by_convolution_Markov<-function(tmat,cumhaz,from_state,to_state,spline_list,unique_paths_object,time){
+probtrans_by_convolution_clockforward<-function(tmat,cumhaz,from_state,to_state,spline_list,unique_paths_object,time){
   row_of_tmat_of_current_state<-which(rownames(tmat)==from_state)
   competing_transitions<-na.omit(tmat[row_of_tmat_of_current_state,])
   probtrans_vector_1<-exp(-(sapply(time,joint_cum_hazard_function,competing_transitions=competing_transitions,spline_list=spline_list)))
@@ -302,22 +301,22 @@ probtrans_by_convolution_Markov<-function(tmat,cumhaz,from_state,to_state,spline
       probtrans_vector_2<-exp(-(sapply(time,joint_cum_hazard_function,competing_transitions=competing_transitions,spline_list=spline_list)))
     }
     
-    probtrans_vector_1<-convolute_Markov(time,lagged_differences_vector,probtrans_vector_1,probtrans_vector_2)
+    probtrans_vector_1<-convolute_clockforward(time,lagged_differences_vector,probtrans_vector_1,probtrans_vector_2)
     
   }
   
   return(probtrans_vector_1)
 }
 
-#'Compute transition probabilities under a semi-Markov model using
+#'Compute transition probabilities under a clock-reset model using
 #'a convolution algorithm.
 #'
 #'@description
 #'Compute transition probabilities for a given starting state and target state
-#'under a semi-Markov model with a single time scale (sojourn time),
+#'under a clock-reset model with a single time scale (sojourn time),
 #'using a convolution algorithm.
 #'
-#'\code{probtrans_by_convolution_semiMarkov} is an internal function of
+#'\code{probtrans_by_convolution_clockreset} is an internal function of
 #'\code{probtrans_by_convolution} and is not meant to be called directly by the user.
 #'
 #'@param tmat Transition matrix.
@@ -332,13 +331,13 @@ probtrans_by_convolution_Markov<-function(tmat,cumhaz,from_state,to_state,spline
 #'@param time A vector of ordered time points.
 #'
 #'@seealso \code{\link{probtrans_ebmstate}};
-#'\code{\link{probtrans_by_convolution_Markov}}; 
+#'\code{\link{probtrans_by_convolution_clockforward}}; 
 #'\code{\link{probtrans_by_convolution}};
 #'\code{\link{unique_paths}};
 #'\code{\link{cumhaz_splines}}.
 #'@author Rui Costa & Moritz Gerstung
 
-probtrans_by_convolution_semiMarkov<-function(tmat,cumhaz,from_state,to_state,spline_list,unique_paths_object,time){
+probtrans_by_convolution_clockreset<-function(tmat,cumhaz,from_state,to_state,spline_list,unique_paths_object,time){
   row_of_tmat_of_current_state<-which(rownames(tmat)==from_state)
   competing_transitions<-na.omit(tmat[row_of_tmat_of_current_state,])
   survival_function<-exp(-(sapply(time,joint_cum_hazard_function,competing_transitions=competing_transitions,spline_list=spline_list)))
@@ -363,7 +362,7 @@ probtrans_by_convolution_semiMarkov<-function(tmat,cumhaz,from_state,to_state,sp
       integrand_2<-survival_function*c(lagged_differences_vector,0)
     }
     
-    integrand_1<-convolute_semiMarkov(time,integrand_1,integrand_2)
+    integrand_1<-convolute_clockreset(time,integrand_1,integrand_2)
     
   }
   

@@ -15,7 +15,7 @@ probtrans_by_convolution(tmat, cumhaz, from_state, model, max_time, nr_steps)
 
 \item{from_state}{Initial state (argument passed on from \code{probtrans_ebmstate}).}
 
-\item{model}{'Markov' or 'semiMarkov' (argument passed on from \code{probtrans_ebmstate}).}
+\item{model}{'clockforward' or 'clockreset' (argument passed on from \code{probtrans_ebmstate}).}
 
 \item{max_time}{The maximum time for which transition probabilities
 are estimated.}
@@ -26,8 +26,8 @@ are estimated.}
 \description{
 \code{probtrans_by_convolution} is an internal function of \code{probtrans_ebmstate} and
 is not meant to be called directly by the user.
-It is itself a wrapper for the functions \code{probtrans_by_convolution_Markov}
-and \code{probtrans_by_convolution_semiMarkov}, which are the workhorses of the 
+It is itself a wrapper for the functions \code{probtrans_by_convolution_clockforward}
+and \code{probtrans_by_convolution_clockreset}, which are the workhorses of the 
 convolution algorithm.
 }
 \details{
@@ -35,8 +35,8 @@ For more information on the arguments of this function
 see \code{\link{probtrans_ebmstate}}.
 }
 \seealso{
-\code{\link{probtrans_ebmstate}};\code{\link{probtrans_by_convolution_Markov}};
-\code{\link{probtrans_by_convolution_semiMarkov}}.
+\code{\link{probtrans_ebmstate}};\code{\link{probtrans_by_convolution_clockforward}};
+\code{\link{probtrans_by_convolution_clockreset}}.
 }
 \author{
 Rui Costa & Moritz Gerstung

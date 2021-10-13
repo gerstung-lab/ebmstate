@@ -22,8 +22,8 @@ A vector with the cumulative hazard of leaving a given state evaluated at given 
 }
 \description{
 This function is not meant to be called by the user. It is
-an internal function of \code{probtrans_by_convolution_Markov}
-and \code{probtrans_by_convolution_semiMarkov}.
+an internal function of \code{probtrans_by_convolution_clockforward}
+and \code{probtrans_by_convolution_clockreset}.
 
 \code{joint_cum_hazard_function} returns the cumulative
 hazard of leaving state \code{i} to any state that can be
@@ -35,8 +35,8 @@ transitions
 are given in the argument \code{competing_transitions}).
 }
 \seealso{
-\code{\link{probtrans_by_convolution_Markov}};
-\code{\link{probtrans_by_convolution_semiMarkov}};
+\code{\link{probtrans_by_convolution_clockforward}};
+\code{\link{probtrans_by_convolution_clockreset}};
 \code{\link{cumhaz_splines}}.
 }
 \author{

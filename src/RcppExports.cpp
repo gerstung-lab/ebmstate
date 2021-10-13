@@ -5,22 +5,22 @@
 
 using namespace Rcpp;
 
-// convolute_semiMarkov
-NumericVector convolute_semiMarkov(NumericVector time_vector, NumericVector integrand_1, NumericVector integrand_2);
-RcppExport SEXP _ebmstate_convolute_semiMarkov(SEXP time_vectorSEXP, SEXP integrand_1SEXP, SEXP integrand_2SEXP) {
+// convolute_clockreset
+NumericVector convolute_clockreset(NumericVector time_vector, NumericVector integrand_1, NumericVector integrand_2);
+RcppExport SEXP _ebmstate_convolute_clockreset(SEXP time_vectorSEXP, SEXP integrand_1SEXP, SEXP integrand_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type time_vector(time_vectorSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type integrand_1(integrand_1SEXP);
     Rcpp::traits::input_parameter< NumericVector >::type integrand_2(integrand_2SEXP);
-    rcpp_result_gen = Rcpp::wrap(convolute_semiMarkov(time_vector, integrand_1, integrand_2));
+    rcpp_result_gen = Rcpp::wrap(convolute_clockreset(time_vector, integrand_1, integrand_2));
     return rcpp_result_gen;
 END_RCPP
 }
-// convolute_Markov
-NumericVector convolute_Markov(NumericVector time_vector, NumericVector diff_vector, NumericVector probtrans_vector_1, NumericVector probtrans_vector_2);
-RcppExport SEXP _ebmstate_convolute_Markov(SEXP time_vectorSEXP, SEXP diff_vectorSEXP, SEXP probtrans_vector_1SEXP, SEXP probtrans_vector_2SEXP) {
+// convolute_clockforward
+NumericVector convolute_clockforward(NumericVector time_vector, NumericVector diff_vector, NumericVector probtrans_vector_1, NumericVector probtrans_vector_2);
+RcppExport SEXP _ebmstate_convolute_clockforward(SEXP time_vectorSEXP, SEXP diff_vectorSEXP, SEXP probtrans_vector_1SEXP, SEXP probtrans_vector_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -28,7 +28,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type diff_vector(diff_vectorSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type probtrans_vector_1(probtrans_vector_1SEXP);
     Rcpp::traits::input_parameter< NumericVector >::type probtrans_vector_2(probtrans_vector_2SEXP);
-    rcpp_result_gen = Rcpp::wrap(convolute_Markov(time_vector, diff_vector, probtrans_vector_1, probtrans_vector_2));
+    rcpp_result_gen = Rcpp::wrap(convolute_clockforward(time_vector, diff_vector, probtrans_vector_1, probtrans_vector_2));
     return rcpp_result_gen;
 END_RCPP
 }

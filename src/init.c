@@ -9,8 +9,8 @@
 /*
   The following symbols/expressions for .NAME have been omitted
 
-    _ebmstate_convolute_semiMarkov
-    _ebmstate_convolute_Markov
+    _ebmstate_convolute_clockreset
+    _ebmstate_convolute_clockforward
 
   Most likely possible values need to be added below.
 */
@@ -50,12 +50,12 @@ static const R_CMethodDef CEntries[] = {
 };
 
 /* .Call calls */
-extern SEXP _ebmstate_convolute_Markov(SEXP, SEXP, SEXP,SEXP);
-extern SEXP _ebmstate_convolute_semiMarkov(SEXP, SEXP,SEXP);
+extern SEXP _ebmstate_convolute_clockforward(SEXP, SEXP, SEXP,SEXP);
+extern SEXP _ebmstate_convolute_clockreset(SEXP, SEXP,SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"_ebmstate_convolute_Markov",            (DL_FUNC) &_ebmstate_convolute_Markov,    4},
-  {"_ebmstate_convolute_semiMarkov",    (DL_FUNC) &_ebmstate_convolute_semiMarkov,    3},
+  {"_ebmstate_convolute_clockforward",            (DL_FUNC) &_ebmstate_convolute_clockforward,    4},
+  {"_ebmstate_convolute_clockreset",    (DL_FUNC) &_ebmstate_convolute_clockreset,    3},
   {"Ccoxcount1",    (DL_FUNC) &coxcount1,    2},
   {"Ccoxcount2",    (DL_FUNC) &coxcount2,    4},
   {"Cagmart3",      (DL_FUNC) &agmart3,      6},

@@ -21,8 +21,8 @@ in this argument.}
 \item{cumhaz}{An \code{msfit} object created by running
 \code{mstate} or \code{mstate_generic}.}
 
-\item{model}{Either 'Markov' or
-'semiMarkov'. See details.}
+\item{model}{Either 'clockforward' or
+'clockreset'. See details.}
 
 \item{max_time}{The maximum time for which transition probabilities
 are estimated.}
@@ -39,12 +39,11 @@ Compute subject-specific transition probabilities
 using convolution.
 }
 \details{
-The Markov model is a non-homogeneous Markov model 
+The clock-forward model is a model 
 in which the transition hazard rates depend only on
-time since the initiating event. The semi-Markov model
+time since the initiating event. The clock-reset model
 has a single time scale: the sojourn time in the current 
-state. This is sometimes called homogeneous semi-Markov
-model. 
+state.
 
 The algorithm behind \code{probtrans_ebmstate} is based 
 on the convolution of density and survival functions and

@@ -30,13 +30,13 @@ to the function \code{unique_paths}.
 The process must have a tree-like structure.
 }
 \details{
-This function is used by \code{probtrans_by_convolution_Markov} and \code{probtrans_by_convolution_semiMarkov}.
+This function is used by \code{probtrans_by_convolution_clockforward} and \code{probtrans_by_convolution_clockreset}.
 It is not meant to be called by the user.
 }
 \seealso{
 \code{\link{unique_paths}};
-\code{\link{probtrans_by_convolution_Markov}};
-\code{\link{probtrans_by_convolution_semiMarkov}}.
+\code{\link{probtrans_by_convolution_clockforward}};
+\code{\link{probtrans_by_convolution_clockreset}}.
 }
 \author{
 Rui Costa
