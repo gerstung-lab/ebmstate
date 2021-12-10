@@ -33,7 +33,7 @@ Must contain: one row of data for each transition, all the covariate columns in 
 
 \item{tmat}{Transition matrix for the multi-state model, as obtained by running \code{mstate::transMat}}
 
-\item{time_model}{The model of time-dependency: either 'Markov' or 'semiMarkov'.}
+\item{time_model}{The model of time-dependency: either 'clockforward' or 'clockreset'.}
 
 \item{backup_file}{Path to file. Objects generated while the present function is running are stored in this file. 
 This avoids losing all estimates if and when the algorithm breaks down. See argument \code{input_file}.}

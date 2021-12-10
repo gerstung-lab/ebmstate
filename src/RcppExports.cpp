@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // convolute_clockreset
 NumericVector convolute_clockreset(NumericVector time_vector, NumericVector integrand_1, NumericVector integrand_2);
 RcppExport SEXP _ebmstate_convolute_clockreset(SEXP time_vectorSEXP, SEXP integrand_1SEXP, SEXP integrand_2SEXP) {

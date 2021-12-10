@@ -1,7 +1,7 @@
 
 #' Bootstrap confidence intervals for transition probabilities
 #' 
-#' Generates 95\% highest density bootstrap interval estimates for transition probabilities computed using \code{probtrans_ebmstate} (semi-Markov version).
+#' Generates 95\% highest density bootstrap interval estimates for transition probabilities computed using \code{probtrans_ebmstate} (clock-reset version).
 #' 
 #' @param coxrfx_fits_boot The list of CoxRFX objects obtained by running \code{boot_coxrfx}.
 #' @param patient_data (Single) patient data in `long format`, possibly with `expanded` covariates
@@ -31,7 +31,7 @@ boot_probtrans<-function(coxrfx_fits_boot,patient_data,tmat,initial_state,max_ti
     #environment(coxrfx_fits_boot[[1]]$formula)$covariate_df<-covariate_df
     
     msfit_objects_boot[[i]]<-msfit_generic(coxrfx_fits_boot[[i]],patient_data2,trans=tmat)
-    probtrans_objects_boot[[i]]<-probtrans_ebmstate(initial_state,msfit_objects_boot[[i]],"semiMarkov")[[1]]
+    probtrans_objects_boot[[i]]<-probtrans_ebmstate(initial_state,msfit_objects_boot[[i]],"clockreset")[[1]]
     probtrans_objects_boot[[i]]<-probtrans_objects_boot[[i]][sapply(seq(from=0,to=max_time,length.out = 400),function(x) which.min(abs(probtrans_objects_boot[[i]]$time-x))),]
     
   }
@@ -203,7 +203,7 @@ boot_coxrfx<-function(mstate_data_expanded,which_group,min_nr_samples=100,output
 #' @param backup_file Path to file. Objects generated while the present function is running are stored in this file. 
 #' This avoids losing all estimates if and when the algorithm breaks down. See argument \code{input_file}. 
 #' @param input_file Path to \code{backup_file} (see argument \code{backup_file}). If this argument is given, all other arguments should be \code{NULL}.
-#' @param time_model The model of time-dependency: either 'Markov' or 'semiMarkov'.
+#' @param time_model The model of time-dependency: either 'clockforward' or 'clockreset'.
 #' @param coxrfx_args Named list with arguments to the \code{CoxRFX} function other than \code{Z},\code{surv} and \code{groups}.
 #' @param msfit_args Named list with arguments to the \code{msfit_generic.coxrfx} function other than \code{object},\code{newdata} and \code{trans}.
 #' @param probtrans_args Named list with arguments to the \code{probtrans_ebmstate} function other than \code{initia_state},\code{cumhaz} and \code{model}.
@@ -256,9 +256,9 @@ boot_ebmstate<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_sample
     covariate_df<-mstate_data_expanded.boot[!names(mstate_data_expanded.boot)%in%c("id","from","to",
                                                                                    "Tstart","Tstop","time","status","type")]
     groups2<-which_group[names(covariate_df)[!names(covariate_df)%in%c("strata","trans")]]
-    if(time_model=="semiMarkov"){
+    if(time_model=="clockreset"){
       surv_object<-Surv(mstate_data_expanded.boot$time,mstate_data_expanded.boot$status) 
-    }else if(time_model=="Markov"){
+    }else if(time_model=="clockforward"){
       surv_object<-Surv(mstate_data_expanded.boot$Tstart,mstate_data_expanded.boot$Tstop,mstate_data_expanded.boot$status) 
     }
     which.mu<-unlist(mget("which.mu",ifnotfound = list(function(which.mu) unique(groups2))))
@@ -322,7 +322,7 @@ boot_ebmstate<-function(mstate_data_expanded=NULL,which_group=NULL,min_nr_sample
 #' @param backup_file Path to file. Objects generated while the present function is running are stored in this file. 
 #' This avoids losing all estimates if and when the algorithm breaks down. See argument \code{input_file}. 
 #' @param input_file Path to \code{backup_file} (see argument \code{backup_file}). If this argument is given, all other arguments should be \code{NULL}.
-#' @param time_model The model of time-dependency: either 'Markov' or 'semiMarkov'.
+#' @param time_model The model of time-dependency: either 'clockforward' or 'clockreset'.
 #' @param coxrfx_args Named list with arguments to the \code{CoxRFX} function other than \code{Z},\code{surv} and \code{groups}.
 #' @param msfit_args Named list with arguments to the \code{msfit_generic.coxrfx} function other than \code{object},\code{newdata} and \code{trans}.
 #' @param probtrans_args Named list with arguments to the \code{probtrans_ebmstate} function other than \code{initia_state},\code{cumhaz} and \code{model}.
@@ -361,9 +361,9 @@ loo_ebmstate<-function(mstate_data,mstate_data_expanded,which_group,
     mstate_data_expanded_loo<-mstate_data_expanded[mstate_data_expanded$id!=patient_IDs[j],]
     covariate_df<-mstate_data_expanded_loo[!names(mstate_data_expanded_loo)%in%c("id","from","to","Tstart","Tstop","time","status","type")]
     groups2<-which_group[names(covariate_df)[!names(covariate_df)%in%c("strata","trans")]]
-    if(time_model=="semiMarkov"){
+    if(time_model=="clockreset"){
       surv_object<-Surv(mstate_data_expanded_loo$time,mstate_data_expanded_loo$status) 
-    }else if(time_model=="Markov"){
+    }else if(time_model=="clockforward"){
       surv_object<-Surv(mstate_data_expanded_loo$Tstart,mstate_data_expanded_loo$Tstop,mstate_data_expanded_loo$status) 
     }
     which.mu<-unlist(mget("which.mu",ifnotfound = list(function(which.mu) unique(groups2))))
