@@ -1,8 +1,7 @@
 Package: ebmstate
 Type: Package
 Title: Empirical Bayes Multi-State Cox Model
-Version: 0.1.2
-Date: 2021-01-03 21:34:01 GMT 
+Version: 0.1.3
 Authors@R:
     c(person(given = "Rui",
              family = "Costa",
