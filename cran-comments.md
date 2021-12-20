@@ -8,14 +8,14 @@ Rui
 
 ## Test environments
 Local:  
-  1. macOS Big Sur, R-release
-  
+  * macOS Big Sur, R-release
+
 Using R-hub package builder:  
-  2. Fedora Linux, R-devel, clang, gfortran
-  3. Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  4. Windows Server 2022, R-devel, 64 bit
-  5. Debian Linux, R-devel, GCC ASAN/UBSAN
-  6. Windows Server 2008 R2 SP1, R-release, 32/64 bit
+  * Fedora Linux, R-devel, clang, gfortran
+  * Ubuntu Linux 20.04.1 LTS, R-release, GCC
+  * Windows Server 2022, R-devel, 64 bit
+  * Debian Linux, R-devel, GCC ASAN/UBSAN
+  * Windows Server 2008 R2 SP1, R-release, 32/64 bit
 
 ## R CMD check results
 There were no ERRORs or WARNINGs for any platform tested.
