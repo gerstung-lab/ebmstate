@@ -1,8 +1,8 @@
 Dear CRAN Maintainer,
 
-this re-submission fixes minor bugs, changes some argument names, and adds a function.
-Many thanks.
-Best wishes,
+this re-submission fixes minor bugs, changes some argument names, and adds a function.\
+Many thanks.\
+Best wishes,\
 Rui
 
 
